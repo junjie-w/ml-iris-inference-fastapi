@@ -1,0 +1,9 @@
+[project]
+name = "ml-iris-inference-fastapi"
+version = "1.0.0"
+description = "FastAPI service for iris flower species prediction using a RandomForest classifier for inference"
+authors = [ { name = "Junjie Wu" } ]
+readme = "README.md"
+requires-python = ">=3.9"
+[project.urls]
+"Homepage" = "https://github.com/junjie-w/ml-iris-inference-fastapi"
