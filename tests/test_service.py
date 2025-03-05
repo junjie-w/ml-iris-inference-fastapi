@@ -43,3 +43,36 @@ class TestModelService:
         assert "parameters" in info
         assert len(info["features"]) == 4
         assert len(info["classes"]) == 3
+
+    def test_predict_single(self, tmp_path):
+        from sklearn.ensemble import RandomForestClassifier
+        test_model = RandomForestClassifier(n_estimators=100, random_state=42)
+        
+        import numpy as np
+        X = np.array([[5.1, 3.5, 1.4, 0.2], [7.0, 3.2, 4.7, 1.4], [6.3, 3.3, 6.0, 2.5]])
+        y = np.array([0, 1, 2])
+        test_model.fit(X, y)
+        
+        model_path = tmp_path / "test_model.pkl"
+        with open(model_path, "wb") as f:
+            pickle.dump(test_model, f)
+        
+        service = ModelService(model_path=str(model_path))
+        
+        from app.models import IrisFeatures
+        test_features = IrisFeatures(
+            sepal_length=5.1,
+            sepal_width=3.5,
+            petal_length=1.4,
+            petal_width=0.2
+        )
+        
+        result = service.predict_single(test_features)
+        
+        assert result is not None
+        assert "prediction" in result
+        assert "probability" in result
+        assert "features" in result
+        assert result["prediction"] in ["setosa", "versicolor", "virginica"]
+        assert isinstance(result["probability"], float)
+        assert 0 <= result["probability"] <= 1
