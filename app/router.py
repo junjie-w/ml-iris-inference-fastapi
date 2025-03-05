@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
-from app.models import ModelInfo
+from app.models import IrisFeatures, ModelInfo, PredictionResponse
 from app.service import ModelService
 
 router = APIRouter()
@@ -37,3 +37,11 @@ def root():
 @router.get("/model/info", response_model=ModelInfo)
 def model_info(service: ModelService = Depends(get_model_service)):
     return service.get_model_info()
+
+@router.post("/predict", response_model=PredictionResponse)
+def predict(features: IrisFeatures, service: ModelService = Depends(get_model_service)):
+    try:
+        result = service.predict_single(features)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
