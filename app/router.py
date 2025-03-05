@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
-from app.models import IrisFeatures, ModelInfo, PredictionResponse
+from app.models import BatchPredictionResponse, IrisBatchFeatures, IrisFeatures, ModelInfo, PredictionResponse
 from app.service import ModelService
 
 router = APIRouter()
@@ -45,3 +45,11 @@ def predict(features: IrisFeatures, service: ModelService = Depends(get_model_se
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
+
+@router.post("/predict/batch", response_model=BatchPredictionResponse)
+def predict_batch(batch: IrisBatchFeatures, service: ModelService = Depends(get_model_service)):
+    try:
+        results = service.predict_batch(batch)
+        return results
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Batch prediction error: {str(e)}")

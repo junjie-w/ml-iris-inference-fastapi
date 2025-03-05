@@ -13,7 +13,13 @@ class IrisFeatures(BaseModel):
     petal_length: float = Field(description="Petal length in cm", json_schema_extra={"example": 1.4})
     petal_width: float = Field(description="Petal width in cm", json_schema_extra={"example": 0.2})
 
+class IrisBatchFeatures(BaseModel):
+    samples: List[IrisFeatures]
+
 class PredictionResponse(BaseModel):
     prediction: str
     probability: float
     features: IrisFeatures
+
+class BatchPredictionResponse(BaseModel):
+    results: List[PredictionResponse]
