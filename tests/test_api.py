@@ -51,3 +51,38 @@ def test_predict_endpoint():
     assert data["prediction"] in ["setosa", "versicolor", "virginica"]
     assert isinstance(data["probability"], float)
     assert 0 <= data["probability"] <= 1
+
+def test_predict_batch_endpoint():
+    test_batch = {
+        "samples": [
+            {
+                "sepal_length": 5.1,
+                "sepal_width": 3.5,
+                "petal_length": 1.4,
+                "petal_width": 0.2
+            },
+            {
+                "sepal_length": 6.7,
+                "sepal_width": 3.0,
+                "petal_length": 5.2,
+                "petal_width": 2.3
+            }
+        ]
+    }
+    
+    response = client.post("/predict/batch", json=test_batch)
+    assert response.status_code == 200
+    
+    data = response.json()
+    assert "results" in data
+    assert isinstance(data["results"], list)
+    assert len(data["results"]) == 2
+    
+    for i, result in enumerate(data["results"]):
+        assert "prediction" in result
+        assert "probability" in result
+        assert "features" in result
+        assert result["features"] == test_batch["samples"][i]
+        assert result["prediction"] in ["setosa", "versicolor", "virginica"]
+        assert isinstance(result["probability"], float)
+        assert 0 <= result["probability"] <= 1
