@@ -1,4 +1,6 @@
 import pickle
+import numpy as np
+from app.models import IrisFeatures
 
 class ModelService:
     def __init__(self, model_path="iris_model.pkl"):
@@ -33,3 +35,23 @@ class ModelService:
             "parameters": self.model.get_params()
         }
     
+    def predict_single(self, features: IrisFeatures):
+        """Make a prediction for a single sample."""
+        if self.model is None:
+            return None
+        
+        feature_array = np.array([
+            [features.sepal_length, 
+            features.sepal_width, 
+            features.petal_length, 
+            features.petal_width]
+        ])
+        
+        prediction = self.model.predict(feature_array)[0]
+        probability = self.model.predict_proba(feature_array)[0][prediction].round(3)
+        
+        return {
+            "prediction": self.iris_species[prediction],
+            "probability": float(probability),
+            "features": features
+        }
