@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-from app.models import IrisFeatures
+from app.models import IrisBatchFeatures, IrisFeatures
 
 class ModelService:
     def __init__(self, model_path="iris_model.pkl"):
@@ -55,3 +55,32 @@ class ModelService:
             "probability": float(probability),
             "features": features
         }
+
+    def predict_batch(self, batch: IrisBatchFeatures):
+        """Make predictions for multiple samples."""
+        if self.model is None:
+            return None
+        
+        features_list = []
+        for sample in batch.samples:
+            features_list.append([
+                sample.sepal_length,
+                sample.sepal_width,
+                sample.petal_length,
+                sample.petal_width
+            ])
+        
+        feature_array = np.array(features_list)
+        
+        predictions = self.model.predict(feature_array)
+        probabilities = self.model.predict_proba(feature_array)
+        
+        results = []
+        for i, pred in enumerate(predictions):
+            results.append({
+                "prediction": self.iris_species[pred],
+                "probability": float(probabilities[i][pred].round(3)),
+                "features": batch.samples[i]
+            })
+        
+        return {"results": results}
