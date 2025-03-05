@@ -13,6 +13,11 @@ dist/
 build/
 *.egg-info/
 
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
 # Model files
 *.pkl
 

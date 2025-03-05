@@ -5,5 +5,10 @@ description = "FastAPI service for iris flower species inference using a RandomF
 authors = [ { name = "Junjie Wu" } ]
 readme = "README.md"
 requires-python = ">=3.9"
+
 [project.urls]
 "Homepage" = "https://github.com/junjie-w/ml-iris-inference-fastapi"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
