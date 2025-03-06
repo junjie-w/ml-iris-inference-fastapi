@@ -1,5 +1,5 @@
 [project]
-name = "Iris Flower Inference API"
+name = "Iris Inference API"
 version = "1.0.0"
 description = "FastAPI service for iris flower species inference using a RandomForest classifier"
 authors = [ { name = "Junjie Wu" } ]

@@ -21,7 +21,7 @@ def get_model_service():
 @router.get("/")
 def root():
     return {
-        "name": "Iris Flower Inference API",
+        "name": "Iris Inference API",
         "version": "1.0.0",
         "description": "FastAPI service for iris flower species inference using a RandomForest classifier",
         "endpoints": {
