@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Make sure the API is running: make run
+# Make sure the API is running 🪻
 
 API_URL="http://127.0.0.1:8000"
 echo "Trying Iris Inference API at $API_URL"
