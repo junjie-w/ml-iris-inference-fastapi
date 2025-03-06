@@ -11,7 +11,7 @@ def test_root_endpoint():
     assert "name" in data
     assert "version" in data
     assert "endpoints" in data
-    assert data["name"] == "Iris Flower Inference API"
+    assert data["name"] == "Iris Inference API"
     assert "/predict" in data["endpoints"]
     assert "/model/info" in data["endpoints"]
 
