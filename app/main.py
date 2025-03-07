@@ -3,7 +3,7 @@ from app.router import router
 
 app = FastAPI(
     title="Iris Inference API", 
-    description="FastAPI service for iris flower species inference using a RandomForest classifier",
+    description="FastAPI service for iris flower species inference using scikit-learn's RandomForest classifier",
     version="1.0.0"
 )
 

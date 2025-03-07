@@ -1,13 +1,13 @@
 # Iris Inference API 🪻
 
-![Python Version](https://img.shields.io/badge/python-3.9+-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)
+![Python Version](https://img.shields.io/badge/python-3.13.2-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115.11-green)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.6.1-orange)
 ![Docker](https://img.shields.io/badge/Docker-enabled-blue)
 
-A [FastAPI](https://fastapi.tiangolo.com/) service for predicting iris flower species using [scikit-learn](https://scikit-learn.org/)'s [RandomForest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html) classifier.
+A [FastAPI](https://fastapi.tiangolo.com/) service for predicting iris flower species using [scikit-learn](https://scikit-learn.org/)'s [RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html).
 
-The model is trained on the classic [Iris flower dataset](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html). By providing flower measurements (sepal and petal dimensions) as input, the API returns the most likely species classification with probability score.
+The model is trained on the classic [Iris flower dataset](https://archive.ics.uci.edu/dataset/53/iris). By providing flower measurements (sepal and petal dimensions) as input, the API returns the most likely species classification with probability score.
 
 Available as a [Docker image](https://hub.docker.com/r/junjiewu0/iris-inference-api).
 
@@ -144,7 +144,7 @@ make run                     # Start the API server
 make dev                     # Start the server with auto-reload
 make test                    # Run tests
 make coverage                # Run tests with coverage report
-make train                   # Train the model
+make train                   # Train the model (creates iris_model.pkl)
 make docker-build            # Build the Docker image
 make docker-run              # Run container from local image
 make docker-pull-remote      # Pull pre-built image from Docker Hub
