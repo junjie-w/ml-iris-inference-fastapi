@@ -23,7 +23,7 @@ def root():
     return {
         "name": "Iris Inference API",
         "version": "1.0.0",
-        "description": "FastAPI service for iris flower species inference using a RandomForest classifier",
+        "description": "FastAPI service for iris flower species inference using scikit-learn's RandomForest classifier",
         "endpoints": {
             "/predict": "Make a prediction for a single iris sample",
             "/predict/batch": "Make predictions for multiple iris samples",
@@ -32,7 +32,6 @@ def root():
         "docs_url": "/docs",
         "author": "Junjie Wu"
     }
-
 
 @router.get("/model/info", response_model=ModelInfo)
 def model_info(service: ModelService = Depends(get_model_service)):
